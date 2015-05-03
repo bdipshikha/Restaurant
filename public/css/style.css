@@ -1,0 +1,33 @@
+h1 {
+  text-align: center;
+  color: tan;
+  font-family: chalkduster;
+}
+h3 {
+  color: tan;
+  font-family: chalkboard SE Bold;
+}
+
+body {
+  background-color: #101A1A;
+  padding: 30px;
+
+}
+ul {
+  padding: 10px;
+  }
+li {
+    color: tan;
+    padding-bottom: 10px;
+    /*padding-right: 30px;*/
+  }
+
+button {
+    background-color: tan;
+    color: #101A1A;
+  }
+
+img {
+  width: 200px;
+  height: 100px;
+} 

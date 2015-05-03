@@ -1,3 +1,5 @@
+
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var sqlite3 = require("sqlite3").verbose();
@@ -16,7 +18,7 @@ app.get('/', function(req, res){
 
 app.get('/categories', function(req, res){
 	db.all("SELECT * FROM categories", function(err, rows){
-		console.log("it works-line 19")
+		//console.log("it works-line 19")
 		if(err){
 			throw err;
 		}
@@ -56,14 +58,14 @@ app.post('/categories', function(req, res){
 
 app.put('/category/:id', function(req, res){
 	var id = req.params.id;
-	console.log("it works-line 59")
+	//console.log("it works-line 59")
 	db.run("UPDATE categories SET name = ? WHERE id = ?", req.body.name, id, function(err){
 		console.log("it works-line 61")
 		if(err){
 			throw err;
 		}
 		db.get("SELECT * FROM categories WHERE id = ?", id, function(err, row){
-			console.log("it works-line 66")
+			//console.log("it works-line 66")
 			if(err){
 				throw err;
 			}
@@ -105,7 +107,11 @@ app.post('/dishes', function(req, res) {
 	db.run("INSERT INTO dishes (name, price, image_url, category_id) VALUES (?,?,?,?)", req.body.name, req.body.price, req.body.image_url, req.body.category_id, function(err) {
 		if(err) {
 			throw err;
-		}
+		} else {
+			
+
+	 	}
+
     var id = this.lastID;
     db.get("SELECT * FROM dishes WHERE id = ?", id, function(err, row) {
     	if(err) {

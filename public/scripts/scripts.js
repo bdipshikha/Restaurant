@@ -1,51 +1,64 @@
 var addNewDishButton = document.getElementById("addNewDish");
 addNewDishButton.addEventListener("click", function() {
-	var newName = document.getElementById("newDishName");
-	var newImage_url = document.getElementById("newDishImage_url");
-	var newPrice = document.getElementById("newDishPrice");
+    var newName = document.getElementById("newDishName");
+    var newImage_url = document.getElementById("newDishImage_url");
+    var newPrice = document.getElementById("newDishPrice");
+        if (newName.value === '' && newPrice.value === '') {       
+            alert("Please enter a valid dish name and dish price")
+            return;
+        } else if (newName.value === '') {
+            alert("Please enter a valid dish name")
+            return;  
+        } else if (newPrice.value === '') {
+            alert("Please enter a valid dish price")
+            return; 
+        } else if (newPrice.value < 1) {
+            alert("The price has to be greater than or equal to $1")
+            return;
+        }
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "http://localhost:3000/dishes");
-	xhr.setRequestHeader("Content-Type", "application/json");
-	xhr.addEventListener("load", function() {
-		var returnedDish = JSON.parse(xhr.response);
-		showDish(returnedDish);
-		newName.value = "";
-		newImage_url = "";
-		newPrice = "";
-	});
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:3000/dishes");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.addEventListener("load", function() {
+        var returnedDish = JSON.parse(xhr.response);
+        showDish(returnedDish);
+        newName.value = "";
+        newImage_url.value = "";
+        newPrice.value = "";
+    });
 
-	var newDish = {
-		name: newName.value,
-		image_url: newImage_url.value,
-		price: newPrice.value
-	}
-	xhr.send(JSON.stringify(newDish));
+    var newDish = {
+        name: newName.value,
+        image_url: newImage_url.value,
+        price: newPrice.value
+    }
+    xhr.send(JSON.stringify(newDish));
 })
 
 var createLiForDish = function(li, dish) {
-	li.innerHTML = "";
-	li.setAttribute("id", "dish" + dish.id );
-	var dishText = dish.name + " " + dish.price;
-	var dishTextNode = document.createTextNode(dishText);
+    li.innerHTML = "";
+    li.setAttribute("id", "dish" + dish.id );
+    var dishText = dish.name + " $" + dish.price;
+    var dishTextNode = document.createTextNode(dishText);
 
+    
     var spanForText = document.createElement("span");
     spanForText.appendChild(dishTextNode);
     spanForText.setAttribute("style", "margin:10px;");
     li.appendChild(spanForText);
 
+     
+
     var dishImg = document.createElement("img");
     dishImg.setAttribute('src', dish.image_url);
-    var spanForImg = document.createElement("span");
-    spanForImg.appendChild(dishImg);
-    spanForImg.setAttribute('style', "width:200px; height:100px;");
-    li.appendChild(spanForImg);
- 
+    li.appendChild(dishImg);
+
 
  var editButton = document.createElement("button");
  editButton.innerText = "Edit";
  editButton.addEventListener("click", function(){
- 	editDish(li, dish.name, dish.image_url, dish.price);
+    editDish(li, dish.name, dish.image_url, dish.price);
  });
  li.appendChild(editButton);
 
@@ -57,15 +70,15 @@ var createLiForDish = function(li, dish) {
 }
 
 var showDish = function(dish) {
-	var li = document.createElement("li");
-	createLiForDish(li, dish);
-	var ul = document.getElementById("dishesList");
-	ul.appendChild(li);
+    var li = document.createElement("li");
+    createLiForDish(li, dish);
+    var ul = document.getElementById("dishesList");
+    ul.appendChild(li);
 };
 
 var showAllDishes = function() {
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "http://localhost:3000/dishes");
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://localhost:3000/dishes");
     xhr.addEventListener("load", function() {
         var dishes = JSON.parse(xhr.response);
         dishes.forEach(function(dish) {
@@ -154,6 +167,11 @@ var deleteDish = function() {
 var addNewCategoryButton = document.getElementById("addNewCategory");
 addNewCategoryButton.addEventListener("click", function() {
     var newName = document.getElementById("newCategoryName");
+
+    // var link = document.createElement("a");
+    // link.setAttribute("href", "category/" + category.id);
+    // link.innerText = newName;
+    // li.appendChild(newName)
     
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "http://localhost:3000/categories");
@@ -180,7 +198,7 @@ var createLiForCategory = function(li, category) {
 
     var link = document.createElement("a");
     link.setAttribute("href", "category/" + category.id);
-    link.innerText = category.name;
+    link.innerText = categoryTextNode;
 
     var spanForText = document.createElement("span");
     spanForText.appendChild(categoryTextNode);
@@ -280,5 +298,3 @@ var deleteCategory = function() {
 showAllDishes();
 
 showAllCategories();
-
-
