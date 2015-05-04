@@ -13,13 +13,22 @@ body {
   padding: 30px;
 
 }
+
+a {
+  color: tan;
+}
 ul {
   padding: 10px;
-  }
+}
+
 li {
     color: tan;
     padding-bottom: 10px;
-    /*padding-right: 30px;*/
+}
+ul#dishesList li {
+    width: 25%;
+    float: left;
+    list-style-type: none;
   }
 
 button {

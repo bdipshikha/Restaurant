@@ -198,12 +198,13 @@ var createLiForCategory = function(li, category) {
 
     var link = document.createElement("a");
     link.setAttribute("href", "category/" + category.id);
-    link.innerText = categoryTextNode;
+    link.innerText = categoryText;
+    li.appendChild(link)
 
-    var spanForText = document.createElement("span");
-    spanForText.appendChild(categoryTextNode);
-    spanForText.setAttribute("style", "margin:10px;");
-    li.appendChild(spanForText);
+    // var spanForText = document.createElement("span");
+    // spanForText.appendChild(categoryTextNode);
+    // spanForText.setAttribute("style", "margin:10px;");
+    // li.appendChild(spanForText);
  
 
  var editButton = document.createElement("button");
