@@ -3,6 +3,8 @@ addNewDishButton.addEventListener("click", function() {
     var newName = document.getElementById("newDishName");
     var newImage_url = document.getElementById("newDishImage_url");
     var newPrice = document.getElementById("newDishPrice");
+    var newCategory_id = document.getElementById("category_id");
+    console.log(newCategory_id);
         if (newName.value === '' && newPrice.value === '') {       
             alert("Please enter a valid dish name and dish price")
             return;
@@ -16,6 +18,7 @@ addNewDishButton.addEventListener("click", function() {
             alert("The price has to be greater than or equal to $1")
             return;
         }
+    
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "http://localhost:3000/dishes");
@@ -26,12 +29,14 @@ addNewDishButton.addEventListener("click", function() {
         newName.value = "";
         newImage_url.value = "";
         newPrice.value = "";
+        newCategory_id.value = "";
     });
 
     var newDish = {
         name: newName.value,
         image_url: newImage_url.value,
-        price: newPrice.value
+        price: newPrice.value,
+        category_id: newCategory_id.value
     }
     xhr.send(JSON.stringify(newDish));
 })
@@ -39,7 +44,7 @@ addNewDishButton.addEventListener("click", function() {
 var createLiForDish = function(li, dish) {
     li.innerHTML = "";
     li.setAttribute("id", "dish" + dish.id );
-    var dishText = dish.name + " $" + dish.price;
+    var dishText = dish.name + "  $" + dish.price;
     var dishTextNode = document.createTextNode(dishText);
 
     
@@ -58,7 +63,7 @@ var createLiForDish = function(li, dish) {
  var editButton = document.createElement("button");
  editButton.innerText = "Edit";
  editButton.addEventListener("click", function(){
-    editDish(li, dish.name, dish.image_url, dish.price);
+ editDish(li, dish.name, dish.image_url, dish.price, dish.category_id);
  });
  li.appendChild(editButton);
 
