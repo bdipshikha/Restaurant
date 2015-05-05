@@ -29,18 +29,18 @@ app.get('/categories', function(req, res){
 app.get('/category/:id', function(req, res){
 	console.log("it works-line 30")
 	var id = req.params.id;
-	db.get('SELECT * FROM categories WHERE id = ?', req.params.id, function(err, row){
-		console.log("it works - line 33")
-	var id = req.params.id;	
-		db.all("SELECT dishes.id, dishes.name FROM dishes INNER JOIN categories ON categories.id = dishes.category_id WHERE id = categories.id;"), function(err, dish) {
+	console.log(id);
+	//db.get('SELECT * FROM categories WHERE id = ?', req.params.id, function(err, row){
+	
+	db.all("SELECT dishes.id, dishes.name FROM dishes INNER JOIN categories ON categories.id = dishes.category_id WHERE categories.id = ?;", id, function(err, dishes) {
 			console.log("it works - line 37")
 
 		if(err){
 			throw err;
 		}
-		res.json(row);
-		};
-	});
+		res.json(dishes);
+		});
+	//});
 });
 
 app.post('/categories', function(req, res){

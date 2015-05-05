@@ -4,7 +4,7 @@ addNewDishButton.addEventListener("click", function() {
     var newImage_url = document.getElementById("newDishImage_url");
     var newPrice = document.getElementById("newDishPrice");
     var newCategory_id = document.getElementById("category_id");
-    console.log(newCategory_id);
+    //console.log(newCategory_id);
         if (newName.value === '' && newPrice.value === '') {       
             alert("Please enter a valid dish name and dish price")
             return;
@@ -14,6 +14,9 @@ addNewDishButton.addEventListener("click", function() {
         } else if (newPrice.value === '') {
             alert("Please enter a valid dish price")
             return; 
+        } else if (newPrice.value < 1) {
+            alert("The price has to be greater than or equal to $1")
+            return;
         } else if (newPrice.value < 1) {
             alert("The price has to be greater than or equal to $1")
             return;
@@ -171,13 +174,7 @@ var deleteDish = function() {
 
 var addNewCategoryButton = document.getElementById("addNewCategory");
 addNewCategoryButton.addEventListener("click", function() {
-    var newName = document.getElementById("newCategoryName");
-
-    // var link = document.createElement("a");
-    // link.setAttribute("href", "category/" + category.id);
-    // link.innerText = newName;
-    // li.appendChild(newName)
-    
+    var newName = document.getElementById("newCategoryName");    
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "http://localhost:3000/categories");
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -195,6 +192,7 @@ addNewCategoryButton.addEventListener("click", function() {
     xhr.send(JSON.stringify(newCategory));
 })
 
+
 var createLiForCategory = function(li, category) {
     li.innerHTML = "";
     li.setAttribute("id", "category" + category.id );
@@ -202,9 +200,33 @@ var createLiForCategory = function(li, category) {
     var categoryTextNode = document.createTextNode(categoryText);
 
     var link = document.createElement("a");
-    link.setAttribute("href", "category/" + category.id);
+    link.setAttribute("href", "/category/" + category.id);
     link.innerText = categoryText;
     li.appendChild(link)
+
+    // li.innerHTML = "";
+    // li.setAttribute("id", "category" + category.id );
+    // var categoryText = category.name;
+    // var categoryTextNode = document.createTextNode(categoryText);
+
+    // var link = document.createElement("p");
+    // link.setAttribute("id", category.id);
+    // link.innerText = categoryText;
+
+    // link.addEventListener("click", function() {
+    // var xhr = new XMLHttpRequest();
+    // xhr.open("GET", "http://localhost:3000/category/" + categories.id);
+    // xhr.addEventListener("load", function() {
+    //     var li = document.createElement("li");
+    //     createLiForCategory(li, category);
+    //     var ul = document.getElementById("categoriesList");
+    //     ul.appendChild("li")
+    //     li.appendChild("link")
+    // })
+    //xhr.send();
+
+
+    
 
     // var spanForText = document.createElement("span");
     // spanForText.appendChild(categoryTextNode);
@@ -224,7 +246,8 @@ var createLiForCategory = function(li, category) {
  deleteButton.addEventListener("click", deleteCategory);
  
  li.appendChild(deleteButton);
-}
+};
+
 
 var showAllCategories = function() {
     console.log("Works - line 206")
@@ -240,11 +263,17 @@ var showAllCategories = function() {
 }
 
 var showCategory = function(category) {
+    // var xhr = new XMLHttpRequest();
+    // xhr.open("GET", "http://localhost:3000/category/"+category.id);
+    // xhr.addEventListener("load", function() {
     var li = document.createElement("li");
     createLiForCategory(li, category);
     var ul = document.getElementById("categoriesList");
     ul.appendChild(li);
-};
+
+}
+
+
 
 var editCategory = function(li, name) {
     li.innerHTML = "";
