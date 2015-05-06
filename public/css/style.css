@@ -1,30 +1,39 @@
 h1 {
   text-align: center;
-  color: tan;
+  color: #480000;
   font-family: chalkduster;
 }
 h3 {
-  color: tan;
+  color: #480000;
   font-family: chalkboard SE Bold;
 }
 
 body {
-  background-color: #101A1A;
-  padding: 30px;
+  background-image: url("http://i95.photobucket.com/albums/l158/ejardeleza/bloodred.jpg");
+  padding: 15px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 
 }
 
 a {
-  color: tan;
+  color: #480000;
 }
 ul {
   padding: 10px;
 }
 
 li {
-    color: tan;
-    padding-bottom: 10px;
+    color: #480000;
+    padding-bottom: 15px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+ul#categoriesList {
+  list-style-type: none;
 }
+
 ul#dishesList li {
     width: 25%;
     float: left;
@@ -32,8 +41,8 @@ ul#dishesList li {
   }
 
 button {
-    background-color: tan;
-    color: #101A1A;
+    background-color: #480000;
+    color: tan;
   }
 
 img {

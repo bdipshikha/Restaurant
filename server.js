@@ -30,7 +30,6 @@ app.get('/category/:id', function(req, res){
 	console.log("it works-line 30")
 	var id = req.params.id;
 	console.log(id);
-	//db.get('SELECT * FROM categories WHERE id = ?', req.params.id, function(err, row){
 	
 	db.all("SELECT dishes.id, dishes.name FROM dishes INNER JOIN categories ON categories.id = dishes.category_id WHERE categories.id = ?;", id, function(err, dishes) {
 			console.log("it works - line 37")

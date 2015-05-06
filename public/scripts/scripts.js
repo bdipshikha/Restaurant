@@ -5,23 +5,23 @@ addNewDishButton.addEventListener("click", function() {
     var newPrice = document.getElementById("newDishPrice");
     var newCategory_id = document.getElementById("category_id");
     //console.log(newCategory_id);
-        if (newName.value === '' && newPrice.value === '') {       
-            alert("Please enter a valid dish name and dish price")
-            return;
-        } else if (newName.value === '') {
-            alert("Please enter a valid dish name")
-            return;  
-        } else if (newPrice.value === '') {
-            alert("Please enter a valid dish price")
-            return; 
-        } else if (newPrice.value < 1) {
-            alert("The price has to be greater than or equal to $1")
-            return;
-        } else if (newPrice.value < 1) {
-            alert("The price has to be greater than or equal to $1")
-            return;
-        }
-    
+    if (newName.value === '' && newPrice.value === '') {
+        alert("Please enter a valid dish name and dish price")
+        return;
+    } else if (newName.value === '') {
+        alert("Please enter a valid dish name")
+        return;
+    } else if (newPrice.value === '') {
+        alert("Please enter a valid dish price")
+        return;
+    } else if (newPrice.value < 1) {
+        alert("The price has to be greater than or equal to $1")
+        return;
+    } else if (newCategory_id.value === '') {
+        alert("The enter a category number")
+        return;
+    }
+
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "http://localhost:3000/dishes");
@@ -46,35 +46,35 @@ addNewDishButton.addEventListener("click", function() {
 
 var createLiForDish = function(li, dish) {
     li.innerHTML = "";
-    li.setAttribute("id", "dish" + dish.id );
+    li.setAttribute("id", "dish" + dish.id);
     var dishText = dish.name + "  $" + dish.price;
     var dishTextNode = document.createTextNode(dishText);
 
-    
+
     var spanForText = document.createElement("span");
     spanForText.appendChild(dishTextNode);
     spanForText.setAttribute("style", "margin:10px;");
     li.appendChild(spanForText);
 
-     
+
 
     var dishImg = document.createElement("img");
     dishImg.setAttribute('src', dish.image_url);
     li.appendChild(dishImg);
 
 
- var editButton = document.createElement("button");
- editButton.innerText = "Edit";
- editButton.addEventListener("click", function(){
- editDish(li, dish.name, dish.image_url, dish.price, dish.category_id);
- });
- li.appendChild(editButton);
+    var editButton = document.createElement("button");
+    editButton.innerText = "Edit";
+    editButton.addEventListener("click", function() {
+        editDish(li, dish.name, dish.image_url, dish.price, dish.category_id);
+    });
+    li.appendChild(editButton);
 
- var deleteButton = document.createElement("button");
- deleteButton.innerText = "Delete";
- deleteButton.addEventListener("click", deleteDish);
- 
- li.appendChild(deleteButton);
+    var deleteButton = document.createElement("button");
+    deleteButton.innerText = "Delete";
+    deleteButton.addEventListener("click", deleteDish);
+
+    li.appendChild(deleteButton);
 }
 
 var showDish = function(dish) {
@@ -95,9 +95,9 @@ var showAllDishes = function() {
     });
     xhr.send();
 }
-var editDish = function(li, name, image_url, price) {
+var editDish = function(li, name, image_url, price, category_id) {
     li.innerHTML = "";
-    var id = li.id.substring(4); 
+    var id = li.id.substring(4);
 
     var nameField = document.createElement("input");
     nameField.setAttribute("type", "text");
@@ -105,19 +105,20 @@ var editDish = function(li, name, image_url, price) {
     li.appendChild(nameField);
 
 
-    
-
     var image_urlField = document.createElement("input");
     image_urlField.setAttribute("type", "text");
     image_urlField.value = image_url;
     li.appendChild(image_urlField);
 
-    
-
     var priceField = document.createElement("input");
     priceField.setAttribute("type", "text");
     priceField.value = price;
     li.appendChild(priceField);
+
+    var category_idField = document.createElement("input");
+    category_idField.setAttribute("type", "text");
+    category_idField.value = category_id;
+    li.appendChild(category_idField);
 
 
     var updateButton = document.createElement("button");
@@ -126,12 +127,13 @@ var editDish = function(li, name, image_url, price) {
         var newName = nameField.value;
         var newImage_url = image_urlField.value;
         var newPrice = priceField.value;
-        updateDish(li, newName, newImage_url, newPrice);
+        var newCategory_id = category_idField.value;
+        updateDish(li, newName, newImage_url, newPrice, newCategory_id);
     });
     li.appendChild(updateButton);
 };
 
-var updateDish = function(li, newName, newImage_url, newPrice) {
+var updateDish = function(li, newName, newImage_url, newPrice, newCategory_id) {
 
     var id = li.id.substring(4);
 
@@ -147,16 +149,17 @@ var updateDish = function(li, newName, newImage_url, newPrice) {
     var updatedDish = {
             name: newName,
             image_url: newImage_url,
-            price: newPrice
-        } 
-    //alert(JSON.stringify(updatedDish));
+            price: newPrice,
+            category_id: newCategory_id
+        }
+        //alert(JSON.stringify(updatedDish));
     xhr.send(JSON.stringify(updatedDish));
 };
 
 var deleteDish = function() {
-    var li = this.parentNode; 
+    var li = this.parentNode;
     var id = li.id.substring(4);
-  
+
     var xhr = new XMLHttpRequest();
     xhr.open("DELETE", "http://localhost:3000/dish/" + id);
     xhr.addEventListener("load", function() {
@@ -164,17 +167,17 @@ var deleteDish = function() {
             li.remove();
         }
     });
-    
+
     xhr.send();
 }
 
-////////////////////////////////////////
-// category starts here
+///////////////////////////////////////////////////////////
+// ************** category starts here ********************
 
 
 var addNewCategoryButton = document.getElementById("addNewCategory");
 addNewCategoryButton.addEventListener("click", function() {
-    var newName = document.getElementById("newCategoryName");    
+    var newName = document.getElementById("newCategoryName");
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "http://localhost:3000/categories");
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -182,12 +185,12 @@ addNewCategoryButton.addEventListener("click", function() {
         var returnedCategory = JSON.parse(xhr.response);
         showCategory(returnedCategory);
         newName.value = "";
-        
+
     });
 
     var newCategory = {
         name: newName.value,
-        
+
     }
     xhr.send(JSON.stringify(newCategory));
 })
@@ -195,57 +198,58 @@ addNewCategoryButton.addEventListener("click", function() {
 
 var createLiForCategory = function(li, category) {
     li.innerHTML = "";
-    li.setAttribute("id", "category" + category.id );
-    var categoryText = category.name;
+    li.setAttribute("id", "category" + category.id);
+    var categoryText = category.id + "  " + category.name;
     var categoryTextNode = document.createTextNode(categoryText);
 
     var link = document.createElement("a");
-    link.setAttribute("href", "/category/" + category.id);
+    link.setAttribute("id", "/category/" + category.id);
     link.innerText = categoryText;
     li.appendChild(link)
 
-    // li.innerHTML = "";
-    // li.setAttribute("id", "category" + category.id );
-    // var categoryText = category.name;
-    // var categoryTextNode = document.createTextNode(categoryText);
 
-    // var link = document.createElement("p");
-    // link.setAttribute("id", category.id);
-    // link.innerText = categoryText;
+    link.addEventListener("click", function() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://localhost:3000/category/" + category.id);
+        xhr.addEventListener("load", function() {
+            var returnedCategory = JSON.parse(xhr.response)
+            console.log(returnedCategory)
+            
+            var div = document.getElementById("categoriesList");
+                div.innerHTML = "";
+            var i = 0; 
+            while(i < returnedCategory.length) {
+                var li2 = document.createElement("li");
+                li2.innerText = returnedCategory[i].name;
+                console.log(returnedCategory[i].name);
+                i = i + 1;
+                createLiForCategory(li, category);
+                div.appendChild(li2)
+            }
+        })
+        xhr.send();
+    });
 
-    // link.addEventListener("click", function() {
-    // var xhr = new XMLHttpRequest();
-    // xhr.open("GET", "http://localhost:3000/category/" + categories.id);
-    // xhr.addEventListener("load", function() {
-    //     var li = document.createElement("li");
-    //     createLiForCategory(li, category);
-    //     var ul = document.getElementById("categoriesList");
-    //     ul.appendChild("li")
-    //     li.appendChild("link")
-    // })
-    //xhr.send();
 
-
-    
 
     // var spanForText = document.createElement("span");
     // spanForText.appendChild(categoryTextNode);
     // spanForText.setAttribute("style", "margin:10px;");
     // li.appendChild(spanForText);
- 
 
- var editButton = document.createElement("button");
- editButton.innerText = "Edit";
- editButton.addEventListener("click", function(){
-    editCategory(li, category.name);
- });
- li.appendChild(editButton);
 
- var deleteButton = document.createElement("button");
- deleteButton.innerText = "Delete";
- deleteButton.addEventListener("click", deleteCategory);
- 
- li.appendChild(deleteButton);
+    var editButton = document.createElement("button");
+    editButton.innerText = "Edit";
+    editButton.addEventListener("click", function() {
+        editCategory(li, category.name);
+    });
+    li.appendChild(editButton);
+
+    var deleteButton = document.createElement("button");
+    deleteButton.innerText = "Delete";
+    deleteButton.addEventListener("click", deleteCategory);
+
+    li.appendChild(deleteButton);
 };
 
 
@@ -263,21 +267,22 @@ var showAllCategories = function() {
 }
 
 var showCategory = function(category) {
-    // var xhr = new XMLHttpRequest();
-    // xhr.open("GET", "http://localhost:3000/category/"+category.id);
-    // xhr.addEventListener("load", function() {
-    var li = document.createElement("li");
-    createLiForCategory(li, category);
-    var ul = document.getElementById("categoriesList");
-    ul.appendChild(li);
-
-}
-
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://localhost:3000/category/" + category.id);
+    xhr.addEventListener("load", function() {
+        var li = document.createElement("li");
+        createLiForCategory(li, category);
+        var ul = document.getElementById("categoriesList");
+        ul.appendChild(li);
+    });
+    xhr.send();
+};
 
 
 var editCategory = function(li, name) {
     li.innerHTML = "";
-    var id = li.id.substring(8); 
+    var id = li.id.substring(8);
 
     var nameField = document.createElement("input");
     nameField.setAttribute("type", "text");
@@ -289,7 +294,6 @@ var editCategory = function(li, name) {
     updateButton.innerText = "Update";
     updateButton.addEventListener("click", function() {
         var newName = nameField.value;
-        
         updateCategory(li, newName);
     });
     li.appendChild(updateButton);
@@ -309,16 +313,16 @@ var updateCategory = function(li, newName) {
     });
 
     var updatedCategory = {
-            name: newName,
-        } 
-  
+        name: newName,
+    }
+
     xhr.send(JSON.stringify(updatedCategory));
 };
 
 var deleteCategory = function() {
-    var li = this.parentNode; 
+    var li = this.parentNode;
     var id = li.id.substring(8);
-  
+
     var xhr = new XMLHttpRequest();
     xhr.open("DELETE", "http://localhost:3000/category/" + id);
     xhr.addEventListener("load", function() {
@@ -326,7 +330,7 @@ var deleteCategory = function() {
             li.remove();
         }
     });
-    
+
     xhr.send();
 }
 
