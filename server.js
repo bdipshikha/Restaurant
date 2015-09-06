@@ -13,7 +13,7 @@ app.use(bodyParser.json({ extended: false }));
 
 app.use(express.static('public'));
 app.get('/', function(req, res){
-	res.render('home.html')
+	res.render('index.html')
 });
 
 app.get('/categories', function(req, res){
@@ -31,15 +31,19 @@ app.get('/category/:id', function(req, res){
 	var id = req.params.id;
 	console.log(id);
 	
-	db.all("SELECT dishes.id, dishes.name FROM dishes INNER JOIN categories ON categories.id = dishes.category_id WHERE categories.id = ?;", id, function(err, dishes) {
-			console.log("it works - line 37")
+	var selectSql = "SELECT dishes.id, dishes.name "
+					+ "FROM dishes "
+					+ "INNER JOIN categories ON categories.id = dishes.category_id "
+					+ "WHERE categories.id = ?;"
+	db.all(selectSql, id, function(err, dishes) {
+		console.log("it works - line 37")
 
 		if(err){
 			throw err;
 		}
 		res.json(dishes);
-		});
-	//});
+	});
+
 });
 
 app.post('/categories', function(req, res){

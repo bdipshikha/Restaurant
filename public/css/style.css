@@ -1,19 +1,19 @@
-h1 {
+h2 {
   text-align: center;
   color: #480000;
-  font-family: chalkduster;
+  font-family: helvetica;
 }
 h3 {
   color: #480000;
-  font-family: chalkboard SE Bold;
+  font-family: helvetica;
 }
 
 body {
-  background-image: url("http://i95.photobucket.com/albums/l158/ejardeleza/bloodred.jpg");
-  padding: 15px;
+  padding: 5px;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+
 
 }
 
@@ -22,6 +22,8 @@ a {
 }
 ul {
   padding: 10px;
+  font-family: helvetica;
+  font-size: 16px;
 }
 
 li {
@@ -29,6 +31,7 @@ li {
     padding-bottom: 15px;
     font-size: 16px;
     font-weight: bold;
+    font-family: helvetica;
   }
 ul#categoriesList {
   list-style-type: none;
@@ -46,6 +49,31 @@ button {
   }
 
 img {
-  width: 200px;
+  width: 150px;
   height: 100px;
 } 
+
+#sidebar {
+  padding-left: 10px;
+  position: absolute;
+  float: left;
+  height: 100%;
+  width: 200px;
+  background-color: tan;
+}
+#main {
+  float: right;
+  height: 100%;
+  width: 970px;
+
+}
+
+@media (max-device-width: 500px) {
+  body {
+    background-color: lightblue;
+    margin: 0 auto;
+  }
+  li {
+    /*display: block;*/
+  }
+}

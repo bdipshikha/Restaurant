@@ -6,8 +6,25 @@
 		
 	</head>
 	<body>
+
+	<div id = "sidebar">
 		<header>
-			<h1 class="menu"> Menu </h1>
+			<h2 class = "cat"> Menu Category </h2>
+		</header>
+
+		
+		<ul id = "categoriesList">
+		</ul>
+
+		<h3> Add a new Category </h3>
+		<input type = "text" id = "newCategoryName" placeholder = "category name"></br>
+		<button id = "addNewCategory"> Add a Category </button>
+		</div>
+
+
+	<div id="main">
+		<header>
+			<h2 class="menu"> Menu </h2>
 		</header>
 		<div>
 		<ul id = "dishesList">
@@ -18,23 +35,14 @@
 
 		<br/>
 
-		<h3> Add a new Dish </h3>
+		<h3> Add a new Dish</h3>
 		<input type = "text" id = "newDishName" placeholder = "dish name">
 		<input type = "text" id = "newDishImage_url" placeholder = "dish image_url">
 		<input type = "number" id = "newDishPrice" placeholder = "dish price">
 		<input type = "number" id = "category_id" placeholder = "dish category id">
 		<button id = "addNewDish"> Add a Dish </button>
-	
-		<header>
-			<h1 class = "cat"> Menu Category </h1>
-		</header>
+		</div>
 
-		<ul id = "categoriesList">
-		</ul>
-
-		<h3> Add a new Category </h3>
-		<input type = "text" id = "newCategoryName" placeholder = "category name">
-		<button id = "addNewCategory"> Add a Category </button>
 
 	
 		<script src = "scripts/scripts.js"></script>

@@ -1,10 +1,13 @@
+
+// creating a new dish 
 var addNewDishButton = document.getElementById("addNewDish");
 addNewDishButton.addEventListener("click", function() {
     var newName = document.getElementById("newDishName");
     var newImage_url = document.getElementById("newDishImage_url");
     var newPrice = document.getElementById("newDishPrice");
     var newCategory_id = document.getElementById("category_id");
-    //console.log(newCategory_id);
+
+// validationg all the field of creating a dish 
     if (newName.value === '' && newPrice.value === '') {
         alert("Please enter a valid dish name and dish price")
         return;
@@ -22,7 +25,7 @@ addNewDishButton.addEventListener("click", function() {
         return;
     }
 
-
+// posting the created dish via ajax call
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "http://localhost:3000/dishes");
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -44,6 +47,7 @@ addNewDishButton.addEventListener("click", function() {
     xhr.send(JSON.stringify(newDish));
 })
 
+// creating li for created dish
 var createLiForDish = function(li, dish) {
     li.innerHTML = "";
     li.setAttribute("id", "dish" + dish.id);
@@ -57,12 +61,16 @@ var createLiForDish = function(li, dish) {
     li.appendChild(spanForText);
 
 
-
+// creating img for dish
     var dishImg = document.createElement("img");
     dishImg.setAttribute('src', dish.image_url);
     li.appendChild(dishImg);
 
+    // creating a line break between the image and edit/delete button
+    var br = document.createElement("br")
+    li.appendChild(br)
 
+// edit button
     var editButton = document.createElement("button");
     editButton.innerText = "Edit";
     editButton.addEventListener("click", function() {
@@ -70,6 +78,7 @@ var createLiForDish = function(li, dish) {
     });
     li.appendChild(editButton);
 
+// creating delete button
     var deleteButton = document.createElement("button");
     deleteButton.innerText = "Delete";
     deleteButton.addEventListener("click", deleteDish);
@@ -77,6 +86,7 @@ var createLiForDish = function(li, dish) {
     li.appendChild(deleteButton);
 }
 
+// to show individual dish
 var showDish = function(dish) {
     var li = document.createElement("li");
     createLiForDish(li, dish);
@@ -84,6 +94,7 @@ var showDish = function(dish) {
     ul.appendChild(li);
 };
 
+// to show all the dishes
 var showAllDishes = function() {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "http://localhost:3000/dishes");
@@ -231,6 +242,8 @@ var createLiForCategory = function(li, category) {
     });
 
 
+    var br = document.createElement("br")
+    li.appendChild(br)
 
     // var spanForText = document.createElement("span");
     // spanForText.appendChild(categoryTextNode);
