@@ -27,7 +27,7 @@ addNewDishButton.addEventListener("click", function() {
 
 // posting the created dish via ajax call
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:3000/dishes");
+    xhr.open("POST", "/dishes");
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.addEventListener("load", function() {
         var returnedDish = JSON.parse(xhr.response);
@@ -149,7 +149,7 @@ var updateDish = function(li, newName, newImage_url, newPrice, newCategory_id) {
     var id = li.id.substring(4);
 
     var xhr = new XMLHttpRequest();
-    xhr.open("PUT", "http://localhost:3000/dish/" + id);
+    xhr.open("PUT", "/dish/" + id);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.addEventListener("load", function() {
         var returnedDish = JSON.parse(xhr.response);
@@ -172,7 +172,7 @@ var deleteDish = function() {
     var id = li.id.substring(4);
 
     var xhr = new XMLHttpRequest();
-    xhr.open("DELETE", "http://localhost:3000/dish/" + id);
+    xhr.open("DELETE", "/dish/" + id);
     xhr.addEventListener("load", function() {
         if (JSON.parse(xhr.responseText).deleted === true) {
             li.remove();
@@ -190,7 +190,7 @@ var addNewCategoryButton = document.getElementById("addNewCategory");
 addNewCategoryButton.addEventListener("click", function() {
     var newName = document.getElementById("newCategoryName");
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:3000/categories");
+    xhr.open("POST", "/categories");
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.addEventListener("load", function() {
         var returnedCategory = JSON.parse(xhr.response);
@@ -221,7 +221,7 @@ var createLiForCategory = function(li, category) {
 
     link.addEventListener("click", function() {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "http://localhost:3000/category/" + category.id);
+        xhr.open("GET", "/category/" + category.id);
         xhr.addEventListener("load", function() {
             var returnedCategory = JSON.parse(xhr.response)
             console.log(returnedCategory)
@@ -282,7 +282,7 @@ var showAllCategories = function() {
 var showCategory = function(category) {
     
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost:3000/category/" + category.id);
+    xhr.open("GET", "/category/" + category.id);
     xhr.addEventListener("load", function() {
         var li = document.createElement("li");
         createLiForCategory(li, category);
@@ -317,7 +317,7 @@ var updateCategory = function(li, newName) {
     var id = li.id.substring(8);
 
     var xhr = new XMLHttpRequest();
-    xhr.open("PUT", "http://localhost:3000/category/" + id);
+    xhr.open("PUT", "/category/" + id);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.addEventListener("load", function() {
         var returnedCategory = JSON.parse(xhr.response);
@@ -337,7 +337,7 @@ var deleteCategory = function() {
     var id = li.id.substring(8);
 
     var xhr = new XMLHttpRequest();
-    xhr.open("DELETE", "http://localhost:3000/category/" + id);
+    xhr.open("DELETE", "/category/" + id);
     xhr.addEventListener("load", function() {
         if (JSON.parse(xhr.responseText).deleted === true) {
             li.remove();
