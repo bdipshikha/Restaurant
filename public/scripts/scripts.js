@@ -97,7 +97,7 @@ var showDish = function(dish) {
 // to show all the dishes
 var showAllDishes = function() {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost:3000/dishes");
+    xhr.open("GET", "/dishes");
     xhr.addEventListener("load", function() {
         var dishes = JSON.parse(xhr.response);
         dishes.forEach(function(dish) {
@@ -269,7 +269,7 @@ var createLiForCategory = function(li, category) {
 var showAllCategories = function() {
     console.log("Works - line 206")
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost:3000/categories");
+    xhr.open("GET", "/categories");
     xhr.addEventListener("load", function() {
         var categories = JSON.parse(xhr.response);
         categories.forEach(function(category) {
