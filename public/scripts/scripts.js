@@ -54,12 +54,13 @@ var createLiForDish = function(li, dish) {
     var dishText = dish.name + "  $" + dish.price;
     var dishTextNode = document.createTextNode(dishText);
 
+    var br = document.createElement("br")
 
-    var spanForText = document.createElement("span");
-    spanForText.appendChild(dishTextNode);
-    spanForText.setAttribute("style", "margin:10px;");
-    li.appendChild(spanForText);
-
+    // var spanForText = document.createElement("span");
+    // spanForText.appendChild(dishTextNode);
+    // spanForText.setAttribute("style", "margin:10px;");
+    li.appendChild(dishTextNode);
+    li.appendChild(br)
 
 // creating img for dish
     var dishImg = document.createElement("img");
@@ -244,11 +245,6 @@ var createLiForCategory = function(li, category) {
 
     var br = document.createElement("br")
     li.appendChild(br)
-
-    // var spanForText = document.createElement("span");
-    // spanForText.appendChild(categoryTextNode);
-    // spanForText.setAttribute("style", "margin:10px;");
-    // li.appendChild(spanForText);
 
 
     var editButton = document.createElement("button");
