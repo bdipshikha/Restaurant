@@ -1,10 +1,10 @@
-# project-2
+# Restaurant
 
-Project Name : Project 2 (Diner app)
+Project Name : Restaurant (Diner app)
 
-Description : This app is for a diner where the owner can keep the website updated based on popularity of the dishes served in the diner. 
+Description : This app is for a diner where the owner can keep the website updated based on popularity of the dishes served at the diner. 
 
-Feature specification : The owner Rick, who is the user, will be able to 
+Feature specification : The owner, who is the user, will be able to 
 1. See all the dishes served at the diner.
 2. Create a new dish.
 3. Edit an existing dish
@@ -17,13 +17,13 @@ More over,
 
 Further more,
 1. He can create a category and will be able to add dishes into the category.
-2. He can see all the dishes under a category.
+2. He can see all the dishes under a category by clicking the category name.
 3. He can edit the name of category or delete the category.
 
 To download to local machine, please see the following instruction:
 
 1. In the terminal, go to the folder where you want to download the project.
-2. Type "git clone git@github.com:bdipshikha/project-2.git" and press enter and the files will be downloaded into your computer with all the required node modules. 
+2. Type "git clone git@github.com:bdipshikha/Restaurant.git" and press enter and the files will be downloaded into your computer with all the required node modules. 
 
 NPM modules used are :
 1. Express
@@ -31,9 +31,5 @@ NPM modules used are :
 3. sqlite3
 4. cors
 
-
-Live URL:
-
-Digital ocean IP address : 45.55.154.186:3000/home.html
 
 
